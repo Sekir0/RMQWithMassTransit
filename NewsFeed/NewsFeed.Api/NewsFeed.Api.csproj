@@ -9,4 +9,9 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\NewsFeed.Domain\NewsFeed.Domain.csproj" />
+      <ProjectReference Include="..\NewsFeed.MongoDb\NewsFeed.MongoDb.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -4,4 +4,8 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\NewsFeed.Domain\NewsFeed.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
