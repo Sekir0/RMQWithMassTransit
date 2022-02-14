@@ -8,4 +8,9 @@
       <ProjectReference Include="..\NewsFeed.Domain\NewsFeed.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Bson" Version="2.14.1" />
+      <PackageReference Include="MongoDB.Driver" Version="2.14.1" />
+    </ItemGroup>
+
 </Project>

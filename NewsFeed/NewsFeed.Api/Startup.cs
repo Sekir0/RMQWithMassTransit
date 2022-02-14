@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
 using NewsFeed.Domain;
 using NewsFeed.MongoDb;
 
@@ -20,11 +21,12 @@ namespace NewsFeed.Api
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
+        public IConfiguration configuration { get; }
+        
+        private const string DefaultDbName = "profiles";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -35,6 +37,15 @@ namespace NewsFeed.Api
                 {
                     Title = "NewsFeed.Api", Version = "v1"
                 });
+            });
+            
+            services.AddScoped(_ =>
+            {
+                // TODO: Remove MONGO_ADDRESS usage after update of all compose files
+                var connectionString = configuration["MONGO_CONNECTION"];
+                var mongoUrl = MongoUrl.Create(connectionString);
+                var client = new MongoClient(mongoUrl);
+                return new DbContext(client.GetDatabase(mongoUrl.DatabaseName ?? DefaultDbName));
             });
 
             services.AddScoped<IPublicationStorage, PublicationStorage>();
