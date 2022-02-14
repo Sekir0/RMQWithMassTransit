@@ -11,8 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
 using Profile.Domain;
 using Profile.MongoDb;
+using Profiles.Api.Helpers;
 
 namespace Profiles.Api
 {
@@ -25,15 +27,28 @@ namespace Profiles.Api
 
         public IConfiguration Configuration { get; }
         
+        private const string DefaultDbName = "profiles";
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Profiles.Api", Version = "v1"
                 });
+                
+                options.IncludeXmlComments(XmlPathProvider.XmlPath);
+            });
+            
+            services.AddScoped(_ =>
+            {
+                // TODO: Remove MONGO_ADDRESS usage after update of all compose files
+                var connectionString = Configuration["MONGO_CONNECTION"];
+                var mongoUrl = MongoUrl.Create(connectionString);
+                var client = new MongoClient(mongoUrl);
+                return new DbContext(client.GetDatabase(mongoUrl.DatabaseName ?? DefaultDbName));
             });
 
             services.AddScoped<IProfileStorage, ProfileStorage>();
