@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profiles.Api", "Profiles.Api\Profiles.Api.csproj", "{7BA5B646-0B73-4682-A333-2BBD402C81C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profile.Domain", "Profile.Domain\Profile.Domain.csproj", "{8A18F17B-C2AE-4E11-81A6-165587C56A47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profile.MongoDb", "Profile.MongoDb\Profile.MongoDb.csproj", "{A1D19FB4-08EE-4522-A2FC-C6DD2FF794BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BA5B646-0B73-4682-A333-2BBD402C81C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BA5B646-0B73-4682-A333-2BBD402C81C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BA5B646-0B73-4682-A333-2BBD402C81C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BA5B646-0B73-4682-A333-2BBD402C81C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A18F17B-C2AE-4E11-81A6-165587C56A47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A18F17B-C2AE-4E11-81A6-165587C56A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A18F17B-C2AE-4E11-81A6-165587C56A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A18F17B-C2AE-4E11-81A6-165587C56A47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1D19FB4-08EE-4522-A2FC-C6DD2FF794BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1D19FB4-08EE-4522-A2FC-C6DD2FF794BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1D19FB4-08EE-4522-A2FC-C6DD2FF794BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1D19FB4-08EE-4522-A2FC-C6DD2FF794BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
