@@ -19,14 +19,18 @@ namespace Profile.Domain
             _profileStorage = profileStorage;
         }
 
-        public Task<Profile> GetByIdAsync(Guid id)
+        public async Task<Profile> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _profileStorage.FindByIdAsync(id);
         }
 
-        public Task<Profile> CreateAsync(Guid? id, string firstName, string lastName, string gender, DateTimeOffset? dateOfBirth, string city)
+        public async Task<Profile> CreateAsync(Guid? id, string firstName, string lastName, string gender, DateTimeOffset? dateOfBirth, string city)
         {
-            throw new NotImplementedException();
+            var profile = new Profile(id ?? Guid.NewGuid(), firstName, lastName, gender, dateOfBirth, city);
+
+            await _profileStorage.InsertAsync(profile);
+
+            return profile;
         }
     }
 }

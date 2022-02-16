@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Profile.Domain;
@@ -21,7 +23,21 @@ namespace Profile.MongoDb
 
             return entity == null ? null : ToDomain(entity);
         }
-        
+
+        public async Task<(IEnumerable<Guid>, long)> SearchProfilesAsync(int skip, int take)
+        {
+            var filter = Builders<ProfileEntity>.Filter.Empty;
+
+            var totalCount = await _context.Profiles.Find(filter).CountDocumentsAsync();
+
+            var entities = await _context.Profiles.Find(filter)
+                .Skip(skip)
+                .Limit(take)
+                .ToListAsync();
+
+            return (entities.Select(x => x.Id), totalCount);
+        }
+
         public async Task<Guid> InsertAsync(Domain.Profile profile)
         {
             var entity = new ProfileEntity
@@ -53,8 +69,7 @@ namespace Profile.MongoDb
                 entity.LastName,
                 entity.Gender,
                 dateOfBirth,
-                entity.City,
-                entity.ProfilePicture);
+                entity.City);
         }
     }
 }

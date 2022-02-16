@@ -10,8 +10,7 @@ namespace Profile.Domain
             string lastName,
             string gender,
             DateTimeOffset? dateOfBirth,
-            string city,
-            string profilePicture)
+            string city)
         {
             Id = id;
             FirstName = firstName;
@@ -19,7 +18,6 @@ namespace Profile.Domain
             Gender = gender;
             DateOfBirth = dateOfBirth;
             City = city;
-            ProfilePicture = profilePicture;
         }
 
         public Guid Id { get; }
@@ -33,8 +31,6 @@ namespace Profile.Domain
         public DateTimeOffset? DateOfBirth { get; private set; }
 
         public string City { get; private set; }
-
-        public string ProfilePicture { get; private set; }
 
         public string FullName => $"{FirstName} {LastName}";
     }

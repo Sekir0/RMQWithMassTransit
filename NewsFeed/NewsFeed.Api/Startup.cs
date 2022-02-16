@@ -26,7 +26,7 @@ namespace NewsFeed.Api
 
         public IConfiguration configuration { get; }
         
-        private const string DefaultDbName = "profiles";
+        private const string DefaultDbName = "newsfeed";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -41,7 +41,6 @@ namespace NewsFeed.Api
             
             services.AddScoped(_ =>
             {
-                // TODO: Remove MONGO_ADDRESS usage after update of all compose files
                 var connectionString = configuration["MONGO_CONNECTION"];
                 var mongoUrl = MongoUrl.Create(connectionString);
                 var client = new MongoClient(mongoUrl);
