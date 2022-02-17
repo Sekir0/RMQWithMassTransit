@@ -9,10 +9,12 @@ namespace NewsFeed.Api.Controllers
     public class NewsFeedController : ControllerBase
     {
         private readonly IPublicationService _publicationService;
+        private readonly IUserProvider _userProvider;
 
-        public NewsFeedController(IPublicationService publicationService)
+        public NewsFeedController(IPublicationService publicationService, IUserProvider userProvider)
         {
             _publicationService = publicationService;
+            _userProvider = userProvider;
         }
         
         /// <summary>
@@ -25,13 +27,13 @@ namespace NewsFeed.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Publication>> CreateAsync([FromBody] CreatePublicationModel model)
         {
-            var author = await userProvider.GetByIdAsync(model.AuthorId);
+            var author = await _userProvider.GetByIdAsync(model.AuthorId);
             var id = await _publicationService.CreateAsync(model.Content, author);
 
             return Ok();
         }
         
-        [HttpGet]
-        public async Task<ActionResult<Publication>> SearchPublication
+        // [HttpGet]
+        // public async Task<ActionResult<Publication>> SearchPublication
     }
 }

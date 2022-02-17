@@ -17,6 +17,7 @@
     <ItemGroup>
       <ProjectReference Include="..\NewsFeed.Domain\NewsFeed.Domain.csproj" />
       <ProjectReference Include="..\NewsFeed.MongoDb\NewsFeed.MongoDb.csproj" />
+      <ProjectReference Include="..\NewsFeed.Profiles.HttpClient\NewsFeed.Profiles.HttpClient.csproj" />
     </ItemGroup>
 
 </Project>

@@ -2,16 +2,18 @@
 using System.Net;
 using System.Threading.Tasks;
 using NewsFeed.Domain;
+using NewsFeed.Profiles.HttpClient.Api;
+using NewsFeed.Profiles.HttpClient.Client;
 
 namespace NewsFeed.Api.Helpers
 {
     public class ProfilesApiUserProvider : IUserProvider
     {
-        private readonly IProfilesApi profilesApi;
+        private readonly IProfileApi _profilesApi;
 
-        public ProfilesApiUserProvider(IProfilesApi profilesApi)
+        public ProfilesApiUserProvider(IProfileApi profilesApi)
         {
-            this.profilesApi = profilesApi;
+            _profilesApi = profilesApi;
         }
 
         public async Task<UserInfo> GetByIdAsync(string id)
@@ -23,7 +25,7 @@ namespace NewsFeed.Api.Helpers
 
             try
             {
-                var result = await profilesApi.GetByIdAsync(guid);
+                var result = await _profilesApi.ProfileIdGetAsync(guid);
                 return result == null
                     ? null
                     : new UserInfo(result.Id, $"{result.FirstName} {result.LastName}", null);
