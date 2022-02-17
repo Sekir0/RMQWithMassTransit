@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsFeed.Domain", "NewsFeed
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsFeed.MongoDb", "NewsFeed.MongoDb\NewsFeed.MongoDb.csproj", "{BE9C98A7-57A2-41A4-B1DB-BA2C52D17FD9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsFeed.Profiles.HttpClient", "NewsFeed.Profiles.HttpClient\NewsFeed.Profiles.HttpClient.csproj", "{0942058F-C5E5-4521-8758-5B00F47F454A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{BE9C98A7-57A2-41A4-B1DB-BA2C52D17FD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE9C98A7-57A2-41A4-B1DB-BA2C52D17FD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE9C98A7-57A2-41A4-B1DB-BA2C52D17FD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0942058F-C5E5-4521-8758-5B00F47F454A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0942058F-C5E5-4521-8758-5B00F47F454A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0942058F-C5E5-4521-8758-5B00F47F454A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0942058F-C5E5-4521-8758-5B00F47F454A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
