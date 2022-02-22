@@ -6,6 +6,8 @@ using NewsFeed.Domain;
 
 namespace NewsFeed.Api.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class NewsFeedController : ControllerBase
     {
         private readonly IPublicationService _publicationService;
@@ -30,10 +32,20 @@ namespace NewsFeed.Api.Controllers
             var author = await _userProvider.GetByIdAsync(model.AuthorId);
             var id = await _publicationService.CreateAsync(model.Content, author);
 
-            return Ok();
+            return Ok(id);
         }
-        
-        // [HttpGet]
-        // public async Task<ActionResult<Publication>> SearchPublication
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<Publication>> SearchPublicationAsync([FromQuery] SearchNewsModel model)
+        {
+            var result = await _publicationService.SearchAsync(model.PublicationId, model.Take, model.order);
+
+            return Ok(result);
+        }
     }
 }

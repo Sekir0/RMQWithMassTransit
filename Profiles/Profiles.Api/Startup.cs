@@ -67,6 +67,13 @@ namespace Profiles.Api
                 //SeedAsync(profileStorage, relationService).GetAwaiter().GetResult();
             }
 
+            app.UseCors(x =>
+            {
+                x.AllowAnyHeader();
+                x.AllowAnyMethod();
+                x.AllowAnyOrigin();
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
