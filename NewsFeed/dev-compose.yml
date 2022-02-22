@@ -13,11 +13,11 @@ services:
     depends_on:
       - db
     environment:
-      - MONGO_CONNECTION=mongodb://db:27017/newsfeed
+      - MONGO_CONNECTION=mongodb://db:27017/profiles
       - ASPNETCORE_ENVIRONMENT=Development
     
   profiles:
-    image: ghcr.io/ghosts-network/profiles:latest
+    image: sekir0/profiles_api:latest
     ports:
       - "5400:80"
     depends_on:

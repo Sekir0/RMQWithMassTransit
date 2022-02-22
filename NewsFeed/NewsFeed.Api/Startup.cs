@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -12,8 +14,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
+using NewsFeed.Api.Helpers;
 using NewsFeed.Domain;
 using NewsFeed.MongoDb;
+using NewsFeed.Profiles.HttpClient.Api;
 
 namespace NewsFeed.Api
 {
@@ -30,7 +34,12 @@ namespace NewsFeed.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -49,6 +58,11 @@ namespace NewsFeed.Api
 
             services.AddScoped<IPublicationStorage, PublicationStorage>();
             services.AddScoped<IPublicationService, PublicationService>();
+
+            services.AddScoped<IProfileApi>(_ => new ProfileApi(configuration["PROFILES_ADDRESS"]));
+            services.AddScoped<IUserProvider, ProfilesApiUserProvider>();
+            
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

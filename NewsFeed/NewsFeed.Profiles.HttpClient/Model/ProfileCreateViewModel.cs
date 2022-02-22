@@ -9,19 +9,10 @@
 
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
-using OpenAPIDateConverter = NewsFeed.Profiles.HttpClient.Client.OpenAPIDateConverter;
 
 namespace NewsFeed.Profiles.HttpClient.Model
 {
@@ -29,7 +20,7 @@ namespace NewsFeed.Profiles.HttpClient.Model
     /// ProfileCreateViewModel
     /// </summary>
     [DataContract(Name = "ProfileCreateViewModel")]
-    public partial class ProfileCreateViewModel : IEquatable<ProfileCreateViewModel>, IValidatableObject
+    public class ProfileCreateViewModel : IEquatable<ProfileCreateViewModel>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileCreateViewModel" /> class.
@@ -209,7 +200,7 @@ namespace NewsFeed.Profiles.HttpClient.Model
         /// </summary>
         /// <param name="validationContext">Validation context</param>
         /// <returns>Validation Result</returns>
-        public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             yield break;
         }

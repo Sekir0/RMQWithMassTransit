@@ -9,19 +9,11 @@
 
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
-using OpenAPIDateConverter = NewsFeed.Profiles.HttpClient.Client.OpenAPIDateConverter;
 
 namespace NewsFeed.Profiles.HttpClient.Model
 {
@@ -99,7 +91,7 @@ namespace NewsFeed.Profiles.HttpClient.Model
         /// Gets or Sets DateOfBirth
         /// </summary>
         [DataMember(Name = "dateOfBirth", EmitDefaultValue = true)]
-        public DateTime? DateOfBirth { get; private set; }
+        public DateTime? DateOfBirth { get; set; }
 
         /// <summary>
         /// Returns false as DateOfBirth should not be serialized given that it's read-only.
@@ -162,7 +154,7 @@ namespace NewsFeed.Profiles.HttpClient.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>
@@ -189,8 +181,7 @@ namespace NewsFeed.Profiles.HttpClient.Model
             return 
                 (
                     this.Id == input.Id ||
-                    (this.Id != null &&
-                    this.Id.Equals(input.Id))
+                    (this.Id.Equals(input.Id))
                 ) && 
                 (
                     this.FirstName == input.FirstName ||
@@ -216,7 +207,7 @@ namespace NewsFeed.Profiles.HttpClient.Model
                     this.City == input.City ||
                     (this.City != null &&
                     this.City.Equals(input.City))
-                ) && 
+                ) &&
                 (
                     this.FullName == input.FullName ||
                     (this.FullName != null &&
@@ -249,7 +240,7 @@ namespace NewsFeed.Profiles.HttpClient.Model
                 {
                     hashCode = (hashCode * 59) + this.Gender.GetHashCode();
                 }
-                if (this.DateOfBirth != null)
+                if (DateOfBirth != null)
                 {
                     hashCode = (hashCode * 59) + this.DateOfBirth.GetHashCode();
                 }
@@ -270,7 +261,7 @@ namespace NewsFeed.Profiles.HttpClient.Model
         /// </summary>
         /// <param name="validationContext">Validation context</param>
         /// <returns>Validation Result</returns>
-        public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             yield break;
         }
