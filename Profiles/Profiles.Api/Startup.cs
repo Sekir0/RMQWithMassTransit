@@ -64,7 +64,7 @@ namespace Profiles.Api
                 
                 var profileStorage = provider.GetRequiredService<IProfileStorage>();
                 var relationService = provider.GetRequiredService<IRelationsService>();
-                //SeedAsync(profileStorage, relationService).GetAwaiter().GetResult();
+                SeedAsync(profileStorage, relationService).GetAwaiter().GetResult();
             }
 
             app.UseCors(x =>
@@ -83,35 +83,35 @@ namespace Profiles.Api
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
-        // private async Task SeedAsync(IProfileStorage profileStorage, IRelationsService relationsService)
-        // {
-        //     var alice = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66af87");
-        //     if (await profileStorage.FindByIdAsync(alice) == null)
-        //     {
-        //         await profileStorage.InsertAsync(new Profile.Domain.Profile(alice, "Alice", "Alice", "Female", null, null));
-        //         for (int i = 0; i < 100000; i++)
-        //         {
-        //             await profileStorage.InsertAsync(new Profile.Domain.Profile(Guid.NewGuid(), "Follower", $"{i}", "Female", null, null));
-        //         }
-        //     }
-        //
-        //     var (_, totalCountFollowers) = await relationsService.SearchFollowersAsync(0, 1, alice);
-        //     
-        //     if (totalCountFollowers == 0)
-        //     {
-        //         var (profiles, _) = await profileStorage.SearchProfilesAsync(1, 100000);
-        //
-        //         foreach (var profile in profiles)
-        //         {
-        //             // TODO test create news
-        //             await relationsService.SendRequestAsync(profile, alice);
-        //             
-        //             // TODO test performance of news
-        //             //await relationsService.SendRequestAsync(alice, profile);
-        //         }
-        //     }
-        //     
-        //     // just wait couple of minutes)) 
-        // }
+        private async Task SeedAsync(IProfileStorage profileStorage, IRelationsService relationsService)
+        {
+            var alice = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66af87");
+            if (await profileStorage.FindByIdAsync(alice) == null)
+            {
+                await profileStorage.InsertAsync(new Profile.Domain.Profile(alice, "Alice", "Alice", "Female", null, null));
+                for (int i = 0; i < 1000; i++)
+                {
+                    await profileStorage.InsertAsync(new Profile.Domain.Profile(Guid.NewGuid(), "Follower", $"{i}", "Female", null, null));
+                }
+            }
+        
+            var (_, totalCountFollowers) = await relationsService.SearchFollowersAsync(0, 1, alice);
+            
+            if (totalCountFollowers == 0)
+            {
+                var (profiles, _) = await profileStorage.SearchProfilesAsync(1, 1000);
+        
+                foreach (var profile in profiles)
+                {
+                    // TODO test create news
+                    await relationsService.SendRequestAsync(profile, alice);
+                    
+                    // TODO test performance of news
+                    //await relationsService.SendRequestAsync(alice, profile);
+                }
+            }
+            
+            // just wait couple of minutes)) 
+        }
     }
 }
