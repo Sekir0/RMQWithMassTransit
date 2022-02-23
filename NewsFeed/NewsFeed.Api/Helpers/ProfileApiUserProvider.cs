@@ -25,7 +25,7 @@ namespace NewsFeed.Api.Helpers
 
             try
             {
-                var result = await _profilesApi.ProfileIdGetAsync(guid);
+                var result = _profilesApi.ProfileIdGet(guid);
                 return result == null
                     ? null
                     : new UserInfo(result.Id, $"{result.FirstName} {result.LastName}", null);

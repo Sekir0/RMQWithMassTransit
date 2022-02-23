@@ -4,7 +4,7 @@ services:
   api:
     build: .
     ports:
-      - "5300:80"
+      - "5500:80"
     environment:
       - MONGO_CONNECTION=mongodb://db:27017/profiles
       - ASPNETCORE_ENVIRONMENT=Development
