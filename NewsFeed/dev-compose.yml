@@ -17,10 +17,16 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     
   profiles:
-    image: sekir0/profiles_api:latest
+    image: sekir0/profiles_api
     ports:
       - "5400:80"
     depends_on:
       - db
     environment:
       - MONGO_CONNECTION=mongodb://db:27017/profiles
+  
+  rabbit:
+    image: rabbitmq:3.9.8-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
